@@ -5,7 +5,7 @@
 <style type="text/css">
 
 #surround {
-  margin: 15% auto 0px auto; text-align:center; color:#000;
+  margin: 4em auto 0px auto; text-align:center; color:#000;
   font-size: 18pt;
   min-height: 400px;
 }
@@ -42,13 +42,14 @@
   <div id="surround">
     To hit the deadline, you should have written
     <h1 id="countdown"></h1>
-    <p id="explain">words by now. You have <span id="remaining"></span> left</p>
+    <div id="explain">words by now. You have <span id="remaining"></span>
+	<p><a href="#" id="IveWrittenWords">I've written words!</a></p>
+    </div>
   </div>
   
   <div id="footer">
     The fault of <a href="http://www.aquarionics.com">Aquarion</a>, bother me on twitter as <a href="http://www.twitter.com/aquarion">@Aquarion</a>, <br/>
-    Official hashtag: "<a href="https://twitter.com/#!/search/%23BastardWidget">#BastardWidget</a>" (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a>
-    and <a href="http://www.twitter.com/Enzo_v2">@Enzo_v2</a>) 
+    Entirely unaffiliated with <a href="http://www.nanowrimo.org">NaNoWriMo</a>, Hate it on Twitter with "<a href="https://twitter.com/#!/search/%23BastardWidget">#BastardWidget</a>" (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a> for naming it.) Good luck! 
   </div>
   
   
@@ -70,6 +71,7 @@ var deadline    = new Date(year,11,1,0,0,0);
 var startdate   = new Date(year,10,1,0,0,0);
 
 var targetWords = 50000;
+var writtenWords = -1;
 var month       = deadline-startdate;
 var persec      = targetWords/month;
 
@@ -167,16 +169,59 @@ function updateCountdown(){
       location.reload(true);
   }
   
-  
+    
   setTimeout("updateCountdown()", 100);
   countdown.innerHTML = formatNumber(words);
   document.title = formatNumber(words);
+
   remaining.innerHTML = countdown_string(remain);
+  if (writtenWords == -1){
+	//#return;
+  } else if (writtenWords >= targetWords){
+	remaining.innerHTML += "<p>You have won NaNoWriMo "+year+"!!</p>";
+	
+  } else if (words > writtenWords){
+	num = (words - writtenWords).toFixed(2)
+	remaining.innerHTML += "<p>You are "+formatNumber(num)+" words behind!</p>";
+  } else {
+	num = (writtenWords - words).toFixed(2)
+
+	time = (writtenWords - words)/persec
+	remain_string = countdown_string(time)
+
+	remaining.innerHTML += "<p>You are "+formatNumber(num)+" words ahead! You will remain ahead for "+remain_string+"</p>";
+
+  }
+
   
+}
+
+function addListener(element, eventName, handler) {
+  if (element.addEventListener) {
+    element.addEventListener(eventName, handler, false);
+  }
+  else if (element.attachEvent) {
+    element.attachEvent('on' + eventName, handler);
+  }
+  else {
+    element['on' + eventName] = handler;
+  }
 }
 
 updateCountdown();
 
+var writtenWordsUpdate = function(){
+	mywords = parseInt(window.prompt("How many words have you written?"));
+	if(mywords){
+		writtenWords = mywords;
+	}
+};
+
+wordprompt = document.getElementById("IveWrittenWords");
+
+if(wordprompt){
+	addListener(wordprompt, "click", writtenWordsUpdate);
+}
 </script>
 
 <script type="text/javascript">
