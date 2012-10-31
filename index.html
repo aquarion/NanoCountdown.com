@@ -1,8 +1,13 @@
 <html>
 <head>
   <title>Nanowrimo Countup</title>  
-
+<link href='//fonts.googleapis.com/css?family=Cabin+Condensed'               rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nova+Mono' rel='stylesheet' type='text/css'>
 <style type="text/css">
+
+body {
+	font-family: 'Cabin Condensed', sans-serif;
+}
 
 #surround {
   margin: 4em auto 0px auto; text-align:center; color:#000;
@@ -11,8 +16,19 @@
 }
 
 #countdown {
-  font-family: "consolas", monospace;
+  font-family: 'Nova Mono', "consolas", monospace;
   font-size: 100px;
+  border-radius: 50%;
+  border: 0px solid red;
+  background: #446;
+  color: white;
+  width: 4.5em;
+  text-align: center;
+  margin: .5em auto .5em auto;
+  padding: .5em;
+  box-shadow: rgba(0,0,0,.5) 10px 10px 30px;
+  text-shadow: rgba(0,0,0,.5) 10px 10px 30px;
+  text-outline: 2px 2px rgba(0,0,0,.5);
 }
 
 #footer {
@@ -48,12 +64,12 @@
   </div>
   
   <div id="footer">
-    The fault of <a href="http://www.aquarionics.com">Aquarion</a>, bother me on twitter as <a href="http://www.twitter.com/aquarion">@Aquarion</a>, <br/>
-    Entirely unaffiliated with <a href="http://www.nanowrimo.org">NaNoWriMo</a>, Hate it on Twitter with "<a href="https://twitter.com/#!/search/%23BastardWidget">#BastardWidget</a>" (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a> for naming it.) Good luck! 
+    The fault of <a href="http://www.aquarionics.com">Aquarion</a>, bother me on twitter as <a href="http://www.twitter.com/aquarion">@Aquarion</a>. If you're actually stuck, try an <a href="http://www.joshharrison.net/oblique-strategies/">oblique strategy</a>.<br/>
+    Entirely unaffiliated with <a href="http://www.nanowrimo.org">NaNoWriMo</a>, Hate it on Twitter with "<a href="https://twitter.com/#!/search/%23BastardWidget">#BastardWidget</a>" (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a> for naming it.) Good luck!
   </div>
   
   
-  
+   
 <script type="text/javascript">
 
 var countdown = document.getElementById("countdown");
