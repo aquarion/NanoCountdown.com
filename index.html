@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Nanowrimo Countup</title>  
+  <title>Nanowrimo Countdown</title>  
 <link href='//fonts.googleapis.com/css?family=Cabin+Condensed'               rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Nova+Mono' rel='stylesheet' type='text/css'>
 <style type="text/css">
@@ -20,7 +20,7 @@ body {
   font-size: 100px;
   border-radius: 50%;
   border: 0px solid red;
-  background: #446;
+  background: #A33;
   color: white;
   width: 4.5em;
   text-align: center;
@@ -72,6 +72,18 @@ body {
    
 <script type="text/javascript">
 
+function getQueryString() {
+  var result = {}, queryString = location.search.substring(1),
+      re = /([^&=]+)=([^&]*)/g, m;
+
+  while (m = re.exec(queryString)) {
+    result[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+
+  return result;
+}
+
+
 var countdown = document.getElementById("countdown");
 var remaining = document.getElementById("remaining");
 
@@ -87,6 +99,10 @@ var deadline    = new Date(year,11,1,0,0,0);
 var startdate   = new Date(year,10,1,0,0,0);
 
 var targetWords = 50000;
+
+if(getQueryString()["target"]){
+	var targetWords = parseInt(getQueryString()["target"]);
+}
 var writtenWords = -1;
 var month       = deadline-startdate;
 var persec      = targetWords/month;
@@ -117,13 +133,13 @@ function formatNumber(num)
 
 function countdown_string(remain){
     
-  remain_string = "";
+  remain_string = [];
   result = remain/days | 0
   if (result > 4){
     word = "day";
     if (result != 1) {word += "s";}
     
-    remain_string += result+" "+word+", ";
+    remain_string.push(result+" "+word);
     remain = remain % days;
   }
   
@@ -131,7 +147,9 @@ function countdown_string(remain){
   if (result > 12 || result < 200 ){
     word = "hour";
     if (result != 1) {word += "s";}
-    remain_string += result+" "+word;
+	if(result > 0){
+		remain_string.push(result+" "+word);
+	}
     remain = remain % hours;
   }
   
@@ -139,7 +157,9 @@ function countdown_string(remain){
   if (result){
     word = "minute";
     if (result != 1) {word += "s";}
-    remain_string += ", "+result+" "+word;
+	if(result > 0){
+		remain_string.push(result+" "+word);
+	}
     remain = remain % minutes;
   }
   
@@ -147,11 +167,13 @@ function countdown_string(remain){
   if (result){
     word = "second";
     if (result != 1) {word += "s";}
-    remain_string += ", "+result+" "+word;
+	if(result > 0){
+		remain_string.push(result+" "+word);
+	}
     remain = remain % seconds;
   }
   
-  return remain_string
+  return remain_string.join(", ")
     
 }
 
