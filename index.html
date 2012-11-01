@@ -83,6 +83,22 @@ function getQueryString() {
   return result;
 }
 
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+{
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+
 
 var countdown = document.getElementById("countdown");
 var remaining = document.getElementById("remaining");
@@ -99,20 +115,28 @@ var deadline    = new Date(year,11,1,0,0,0);
 var startdate   = new Date(year,10,1,0,0,0);
 
 var targetWords = 50000;
-
 if(getQueryString()["target"]){
 	var targetWords = parseInt(getQueryString()["target"]);
 }
+
 var writtenWords = -1;
+var writtenWords_cookie=getCookie("writtenWords");
+
+if(writtenWords_cookie != null){
+	writtenWords = parseInt(writtenWords_cookie)
+}
+
 var month       = deadline-startdate;
 var persec      = targetWords/month;
 
 var days        = 1000*60*60*24;
 var hours       = 1000*60*60;
 var minutes     = 1000*60;
-var seconds     = 1000
+var seconds     = 1000;
+var tenths_sec  = 100;
 
 var was_countup = false;
+
 
 function formatNumber(num)
 {    
@@ -131,7 +155,7 @@ function formatNumber(num)
     return num;
 }
 
-function countdown_string(remain){
+function countdown_string(remain, tenths){
     
   remain_string = [];
   result = remain/days | 0
@@ -170,9 +194,23 @@ function countdown_string(remain){
 	if(result > 0){
 		remain_string.push(result+" "+word);
 	}
+	num_seconds = result
     remain = remain % seconds;
   }
   
+  if(tenths){
+	  result = remain/tenths_sec | 0
+	  if (result){
+		word = "second";
+		if (num_seconds != 1 && result != 0) {word += "s";}
+		if(result > 0){
+			secs = remain_string.pop()
+			remain_string.push(num_seconds+"."+result+" "+word);
+		}
+		remain = remain % tenths_sec;
+	  }
+  }
+    
   return remain_string.join(", ")
     
 }
@@ -208,7 +246,7 @@ function updateCountdown(){
   }
   
     
-  setTimeout("updateCountdown()", 100);
+  setTimeout("updateCountdown()", 200);
   countdown.innerHTML = formatNumber(words);
   document.title = formatNumber(words);
 
@@ -225,9 +263,9 @@ function updateCountdown(){
 	num = (writtenWords - words).toFixed(2)
 
 	time = (writtenWords - words)/persec
-	remain_string = countdown_string(time)
+	remain_string = countdown_string(time, true)
 
-	remaining.innerHTML += "<p>You are "+formatNumber(num)+" words ahead! You will remain ahead for "+remain_string+"</p>";
+	remaining.innerHTML += "<p>At "+formatNumber(writtenWords)+" words, you are "+formatNumber(num)+" words ahead!<br/> You will remain ahead for "+remain_string+"</p>";
 
   }
 
@@ -252,7 +290,14 @@ var writtenWordsUpdate = function(){
 	mywords = parseInt(window.prompt("How many words have you written?"));
 	if(mywords){
 		writtenWords = mywords;
+		
+		// Save as cookie
+		var c_name="writtenWords"
+		var c_value=escape(mywords) + "; expires="+deadline.toUTCString();
+		document.cookie=c_name + "=" + c_value;
 	}
+	
+	
 };
 
 wordprompt = document.getElementById("IveWrittenWords");
