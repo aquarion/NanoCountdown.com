@@ -20,7 +20,7 @@ body {
   font-size: 100px;
   border-radius: 50%;
   border: 0px solid red;
-  background: #A33;
+  background: #33A;
   color: white;
   width: 4.5em;
   text-align: center;
@@ -64,8 +64,9 @@ body {
   </div>
   
   <div id="footer">
-    The fault of <a href="http://www.aquarionics.com">Aquarion</a>, bother me on twitter as <a href="http://www.twitter.com/aquarion">@Aquarion</a>. If you're actually stuck, try an <a href="http://www.joshharrison.net/oblique-strategies/">oblique strategy</a>.<br/>
-    Entirely unaffiliated with <a href="http://www.nanowrimo.org">NaNoWriMo</a>, Hate it on Twitter with "<a href="https://twitter.com/#!/search/%23BastardWidget">#BastardWidget</a>" (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a> for naming it.) Good luck!
+    By <a href="http://www.aquarionics.com">Aquarion</a>, 
+    [ <a href="http://www.twitter.com/aquarion">twitter</a> | <a href="http://tumblr.aquarionics.com">tumblr</a> | <a href="http://wiki.aquarionics.com/Walrus">elseweb</a> ] - There are some [ <a href="advanced.html">Advanced Options</a> ]<br/>
+    Entirely unaffiliated with <a href="http://www.nanowrimo.org">NaNoWriMo</a>, Hate it with the hashtag <code>#BastardWidget</code> on <a href="https://twitter.com/#!/search/%23BastardWidget">twitter</a> or <a href="https://tumblr.com/tagged/BastardWidget">tumblr</a> (Thanks to <a href="http://www.twitter.com/LondonNaNo">@LondonNaNo</a> for naming it.) Good luck!
   </div>
   
   
@@ -98,6 +99,12 @@ for (i=0;i<ARRcookies.length;i++)
   }
 }
 
+// parse a date in yyyy-mm-dd format
+function parseDate(input) {
+  var parts = input.split('-');
+  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
+}
 
 
 var countdown = document.getElementById("countdown");
@@ -112,11 +119,20 @@ if (year < 2000){
 }
 
 var deadline    = new Date(year,11,1,0,0,0);
+
+if(getQueryString()["deadline"]){
+  var deadline = parseDate(getQueryString()["deadline"]);
+}
+
 var startdate   = new Date(year,10,1,0,0,0);
+if(getQueryString()["startdate"]){
+  var startdate = parseDate(getQueryString()["startdate"]);
+}
+
 
 var targetWords = 50000;
 if(getQueryString()["target"]){
-	var targetWords = parseInt(getQueryString()["target"]);
+  var targetWords = parseInt(getQueryString()["target"]);
 }
 
 var writtenWords = -1;
