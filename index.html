@@ -10,7 +10,7 @@ body {
 }
 
 #surround {
-  margin: 4em auto 0px auto; text-align:center; color:#000;
+  margin: 0 auto 0px auto; text-align:center; color:#000;
   font-size: 18pt;
   min-height: 400px;
 }
@@ -22,7 +22,7 @@ body {
   border: 0px solid red;
   background: #A33;
   color: white;
-  width: 4.5em;
+  width: 5em;
   text-align: center;
   margin: .5em auto .5em auto;
   padding: .5em;
@@ -112,7 +112,14 @@ if (year < 2000){
 }
 
 var deadline    = new Date(year,11,1,0,0,0);
+if(getQueryString()["deadline"]){
+	var deadline = Date.parse(getQueryString()["deadline"]);
+}
+
 var startdate   = new Date(year,10,1,0,0,0);
+if(getQueryString()["startdate"]){
+	var startdate = Date.parse(getQueryString()["startdate"]);
+}
 
 var targetWords = 50000;
 if(getQueryString()["target"]){
@@ -143,16 +150,17 @@ function formatNumber(num)
     var n = num.toString();
     var nums = n.split('.');
     var newNum = "";
+	nums[0] = nums[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     if (nums.length > 1)
     {
         var dec = nums[1].substring(0,2);
-        newNum = nums[0] + "," + dec;
+        newNum = nums[0] + "." + dec;
     }
     else
     {
     newNum = num;
     }
-    return num;
+    return newNum;
 }
 
 function countdown_string(remain, tenths){
@@ -202,7 +210,7 @@ function countdown_string(remain, tenths){
 	  result = remain/tenths_sec | 0
 	  if (result){
 		word = "second";
-		if (num_seconds != 1 && result != 0) {word += "s";}
+		if (num_seconds != 1 || (num_seconds == 1 && result != 0) ) {word += "s";}
 		if(result > 0){
 			secs = remain_string.pop()
 			remain_string.push(num_seconds+"."+result+" "+word);
@@ -287,7 +295,7 @@ function addListener(element, eventName, handler) {
 updateCountdown();
 
 var writtenWordsUpdate = function(){
-	mywords = parseInt(window.prompt("How many words have you written?"));
+	mywords = parseInt(window.prompt("How many words have you written? (-1 to remove)"));
 	if(mywords){
 		writtenWords = mywords;
 		
