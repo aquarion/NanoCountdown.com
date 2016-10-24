@@ -49,7 +49,7 @@ a {
   border: 0px solid red;
   background: rgba(51,51,170, .7);
   color: white;
-  width: 5em;
+  max-width: 5em;
   line-height: 1em;
 
   text-align: center;
