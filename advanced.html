@@ -3,41 +3,14 @@
   <title>Nanowrimo Countdown</title>  
 <link href='//fonts.googleapis.com/css?family=Cabin+Condensed'               rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Nova+Mono' rel='stylesheet' type='text/css'>
-<style type="text/css">
-
-body {
-	font-family: 'Cabin Condensed', sans-serif;
-}
-
-
-h1 {
-  font-family: 'Nova Mono', "consolas", monospace;
-  font-size: 25px;
-  border-radius: 50%;
-  border: 0px solid red;
-  background: #33A;
-  color: white;
-  width: 10.5em;
-  text-align: center;
-  margin: .5em auto .5em auto;
-  padding: .5em;
-  box-shadow: rgba(0,0,0,.5) 10px 10px 30px;
-  text-shadow: rgba(0,0,0,.5) 10px 10px 30px;
-  text-outline: 2px 2px rgba(0,0,0,.5);
-}
-
-h1 a {
-  color: white;
-  text-decoration: none;
-}
-
-</style>
+<link href='style.css' rel='stylesheet' type='text/css'>
 
 </head>
 
 
 <body> 
 
+<div class="bubble">
 <h1><a href="/">Nanocountdown</a></h1>
   
 <p>Advanced NanoCountdown Options:</p>
@@ -46,13 +19,14 @@ h1 a {
 
 <form method="GET" action="/">
 
-Target Words: <input type="number" value="50000" name="target" /><br/>
-Start Date: <input type="date" value=" " name="startdate" id="startdate" /> (Format YYYY-MM-DD)<br/>
-End Date: <input type="date" value=" " name="deadline" id="deadline" /> (Format YYYY-MM-DD)<br/>
+Target Words: <input id="target" type="number" value="50000" name="target" /><br/>
+Start Date: <input id="startdate" type="date" value=" " name="startdate" id="startdate" /> (Format YYYY-MM-DD)<br/>
+End Date: <input id="deadline" type="date" value=" " name="deadline" id="deadline" /> (Format YYYY-MM-DD)<br/>
 <i>Note that the deadline is one second before this date, so the default is correct for NanoWrimo</i><br/>
 <input type="submit">
 </form>
 
+</div>
 
 <script type="text/javascript">
 //document.getElementById('startdate').value = "2014-01-01";

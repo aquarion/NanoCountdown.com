@@ -1,0 +1,83 @@
+
+
+body {
+	font-family: 'Cabin Condensed', sans-serif;
+	background: #222;
+	color: #AAA;
+
+background-attachment: fixed;
+background-color: #EEE;
+background-image: url("background.jpg");
+background-position: 50% 50%;
+background-repeat: repeat;
+background-size: cover;
+
+}
+
+#surround {
+  margin: 0 auto 0px auto; text-align:center; color:#000;
+  font-size: 18pt;
+  min-height: 400px;
+	color: #AAA;
+}
+
+a {
+	color: #FFF;
+}
+
+.bubble {
+	background: rgba(0,0,0,.8);
+	max-width: 30em;
+	padding: .5em;
+	border-radius: .5em;
+  margin: .5em auto .5em auto;
+}
+
+#IveWrittenWords {
+	background: #33A;
+	border-radius: 5px;
+	padding: .4em 1em;
+	color: white;
+	text-decoration: none;
+}
+
+#countdown {
+  font-family: 'Nova Mono', "consolas", monospace;
+  font-size: 100px;
+  /*border-radius: 50%;*/
+  border-radius: .5em;
+  border: 0px solid red;
+  background: rgba(51,51,170, .7);
+  color: white;
+  width: 5em;
+  line-height: 1em;
+
+  text-align: center;
+  margin: .5em auto .5em auto;
+  padding: .5em;
+  box-shadow: rgba(0,0,0,.5) 10px 10px 30px;
+  text-shadow: rgba(0,0,0,.5) 10px 10px 30px;
+  text-outline: 2px 2px rgba(0,0,0,.5);
+}
+
+#footer {
+  width 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  background: rgba(0,0,0,.85);
+  line-height: 2em;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+#footer a {
+  color: white;
+}
+
+#explain a {
+	clear: both;
+}
+
