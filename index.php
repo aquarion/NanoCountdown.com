@@ -5,6 +5,18 @@
 <link href='http://fonts.googleapis.com/css?family=Nova+Mono' rel='stylesheet' type='text/css'>
 <link href='style.css' rel='stylesheet' type='text/css'>
 
+<style type="text/css">
+
+<?PHP if(isset($_GET['bg'])){ ?>
+
+body {
+	background-image: url("custom_bg/<?PHP echo $_GET['bg']; ?>.jpg");
+}
+
+<?PHP } ?>
+
+</style>
+
 </head>
 
 
